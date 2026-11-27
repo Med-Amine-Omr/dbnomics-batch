@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: dbnomics-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-dbnomics}
+      POSTGRES_USER: ${DB_USER:-dbnomics}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dbnomics}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dbnomics} -d ${DB_NAME:-dbnomics}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
