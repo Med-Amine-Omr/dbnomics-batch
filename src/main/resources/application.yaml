@@ -1,3 +1,26 @@
 spring:
   application:
     name: dbnomics-batch
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/dbnomics}
+    username: ${DB_USER:dbnomics}
+    password: ${DB_PASSWORD:dbnomics}
+
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+dbnomics:
+  base-url: https://api.db.nomics.world/v22
